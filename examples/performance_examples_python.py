@@ -19,6 +19,10 @@ import asyncio
 class ShoeRepository:
     """Example repository showing database query optimization"""
     
+    def __init__(self, db):
+        """Initialize with database connection"""
+        self.db = db
+    
     def get_shoes_with_reviews_bad(self) -> List[Dict[str, Any]]:
         """
         ❌ BAD: N+1 Query Problem
@@ -252,6 +256,10 @@ async def fetch_shoe_images_async_good(shoe_ids: List[int]) -> List[bytes]:
 class InventoryService:
     """Service demonstrating query optimization"""
     
+    def __init__(self, db):
+        """Initialize with database connection"""
+        self.db = db
+    
     def get_low_stock_shoes_bad(self) -> List[Dict]:
         """
         ❌ BAD: Loading all data then filtering in application
@@ -315,10 +323,14 @@ class InventoryService:
 # Example 8: Batch Processing
 # ============================================================================
 
-def update_shoe_prices_bad(price_updates: List[Dict]) -> None:
+def update_shoe_prices_bad(db, price_updates: List[Dict]) -> None:
     """
     ❌ BAD: Individual updates in loop
     Creates N database transactions
+    
+    Args:
+        db: Database connection object
+        price_updates: List of price updates
     """
     for update in price_updates:
         db.execute(
@@ -328,10 +340,14 @@ def update_shoe_prices_bad(price_updates: List[Dict]) -> None:
         db.commit()
 
 
-def update_shoe_prices_good(price_updates: List[Dict]) -> None:
+def update_shoe_prices_good(db, price_updates: List[Dict]) -> None:
     """
     ✅ GOOD: Batch update in single transaction
     Creates 1 database transaction
+    
+    Args:
+        db: Database connection object
+        price_updates: List of price updates
     """
     db.begin_transaction()
     try:
@@ -346,10 +362,14 @@ def update_shoe_prices_good(price_updates: List[Dict]) -> None:
         raise
 
 
-def update_shoe_prices_best(price_updates: List[Dict]) -> None:
+def update_shoe_prices_best(db, price_updates: List[Dict]) -> None:
     """
     ✅ BEST: Using bulk update with single query
     Most efficient approach
+    
+    Args:
+        db: Database connection object
+        price_updates: List of price updates
     """
     # Prepare batch data
     update_data = [(u['price'], u['id']) for u in price_updates]
@@ -397,6 +417,36 @@ def process_large_inventory_good(inventory_file: str) -> int:
 # ============================================================================
 # Example 10: Avoiding Premature Computation
 # ============================================================================
+
+# Placeholder functions for demonstration
+def get_all_shoes():
+    """Placeholder: Fetch all shoes from database"""
+    return []
+
+def get_all_categories():
+    """Placeholder: Fetch all categories"""
+    return []
+
+def get_all_brands():
+    """Placeholder: Fetch all brands"""
+    return []
+
+def get_popular_shoes():
+    """Placeholder: Fetch popular shoes"""
+    return []
+
+def get_new_arrivals():
+    """Placeholder: Fetch new arrivals"""
+    return []
+
+def get_sale_shoes():
+    """Placeholder: Fetch shoes on sale"""
+    return []
+
+def get_recommended_shoes():
+    """Placeholder: Expensive ML calculation for recommendations"""
+    return []
+
 
 def get_shoe_catalog_bad() -> Dict[str, Any]:
     """
