@@ -8,6 +8,13 @@ This repository includes comprehensive performance optimization resources:
 
 ### 📚 Documentation
 
+- **[Performance Workflow](PERFORMANCE_WORKFLOW.md)** - Step-by-step guide for:
+  - Identifying performance issues
+  - Measuring and gathering data
+  - Analyzing bottlenecks
+  - Implementing optimizations
+  - Testing and monitoring
+
 - **[Performance Guidelines](PERFORMANCE_GUIDELINES.md)** - Comprehensive guide covering:
   - Database query optimization
   - Frontend performance best practices
@@ -22,6 +29,13 @@ This repository includes comprehensive performance optimization resources:
   - Frontend code
   - Memory management
   - Security vs performance trade-offs
+
+- **[Quick Reference](QUICK_REFERENCE.md)** - Fast lookup for common patterns:
+  - Database query patterns
+  - JavaScript/TypeScript optimizations
+  - Python best practices
+  - Caching examples
+  - React performance tips
 
 ### 💻 Code Examples
 
