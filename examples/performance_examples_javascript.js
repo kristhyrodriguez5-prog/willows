@@ -156,17 +156,17 @@ function renderShoeListGood(shoes) {
 /**
  * ❌ BAD: No debouncing for search
  * Makes API call on every keystroke
- * Also missing URL encoding for query parameter
  */
 function handleSearchBad(event) {
   const query = event.target.value;
-  fetch(`/api/shoes/search?q=${encodeURIComponent(query)}`)
+  // Missing URL encoding - vulnerable to malformed URLs
+  fetch(`/api/shoes/search?q=${query}`)
     .then(response => response.json())
     .then(results => displayResults(results));
 }
 
 /**
- * ✅ GOOD: Debounced search
+ * ✅ GOOD: Debounced search with proper URL encoding
  * Waits for user to stop typing
  * Properly encodes query parameter
  */

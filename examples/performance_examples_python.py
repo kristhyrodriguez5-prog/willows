@@ -420,38 +420,46 @@ def process_large_inventory_good(inventory_file: str) -> int:
 
 # Placeholder functions for demonstration
 def get_all_shoes():
-    """Placeholder: Fetch all shoes from database"""
-    return []
+    """Placeholder: Simulate expensive database query"""
+    time.sleep(0.1)  # Simulate DB query time
+    return [{'id': i, 'name': f'Shoe {i}'} for i in range(100)]
 
 def get_all_categories():
-    """Placeholder: Fetch all categories"""
-    return []
+    """Placeholder: Simulate database query"""
+    time.sleep(0.05)
+    return ['Sneakers', 'Boots', 'Sandals']
 
 def get_all_brands():
-    """Placeholder: Fetch all brands"""
-    return []
+    """Placeholder: Simulate database query"""
+    time.sleep(0.05)
+    return ['Nike', 'Adidas', 'Puma']
 
 def get_popular_shoes():
-    """Placeholder: Fetch popular shoes"""
-    return []
+    """Placeholder: Simulate database query with analytics"""
+    time.sleep(0.08)
+    return [{'id': i, 'name': f'Popular {i}'} for i in range(10)]
 
 def get_new_arrivals():
-    """Placeholder: Fetch new arrivals"""
-    return []
+    """Placeholder: Simulate database query"""
+    time.sleep(0.06)
+    return [{'id': i, 'name': f'New {i}'} for i in range(20)]
 
 def get_sale_shoes():
-    """Placeholder: Fetch shoes on sale"""
-    return []
+    """Placeholder: Simulate database query"""
+    time.sleep(0.07)
+    return [{'id': i, 'name': f'Sale {i}'} for i in range(15)]
 
 def get_recommended_shoes():
-    """Placeholder: Expensive ML calculation for recommendations"""
-    return []
+    """Placeholder: Simulate expensive ML calculation"""
+    time.sleep(0.5)  # ML models are expensive!
+    return [{'id': i, 'name': f'Recommended {i}'} for i in range(10)]
 
 
 def get_shoe_catalog_bad() -> Dict[str, Any]:
     """
     ❌ BAD: Computing all data upfront
     Wastes resources if user only needs subset
+    Total time: ~0.91 seconds even if only 'shoes' is needed
     """
     return {
         'shoes': get_all_shoes(),
@@ -467,6 +475,7 @@ def get_shoe_catalog_bad() -> Dict[str, Any]:
 def get_shoe_catalog_good(include_fields: List[str] = None) -> Dict[str, Any]:
     """
     ✅ GOOD: Lazy loading - compute only what's requested
+    Only loads requested fields, saving time and resources
     """
     result = {}
     
